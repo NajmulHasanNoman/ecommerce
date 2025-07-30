@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+ // output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model brands{
+  id         Int        @id @default(autoincrement())
+  brandName  String     @unique @db.VarChar(50)
+  brandImg   String     @db.VarChar(300)
+  createdAt  DateTime   @default(now()) @db.Timestamp(0)
+  updatedAt  DateTime   @default(now()) @db.Timestamp(0) 
+  products   products[] 
+}
+
+model categories{
+  id            Int       @id @default(autoincrement())
+  categoryName  String    @unique @db.VarChar(50)
+  categoryImg   String    @db.VarChar(300)
+  createdAt     DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt     DateTime  @default(now()) @updatedAt @db.Timestamp(0)
+  products      products[]
+}
+model products{
+  id             Int     @id @default(autoincrement())
+  title          String  @db.VarChar(200)
+  short_des      String  @db.VarChar(500)
+  price          Float
+  discount       Boolean
+  discount_price Float
+  image          String  @db.VarChar(200)
+  stock          Boolean
+  star           Float
+ // remark         products_remark
+  category_id    Int
+  brand_id       Int
+  createdAt      DateTime @default(now()) @db.Timestamp()
+  updatedAt      DateTime @default(now()) @db.Timestamp()
+  
+  // invoice_products invoice_products[]
+  // product_carts    product_carts[]
+  // product_details  product_details?
+  // product_reviews  product_reviews[]
+  // product_sliders  product_sliders?
+  // product_wishes   product_wishes[]
+
+  brands     brands     @relation(fields: [brand_id], references: [id],onDelete: Restrict,onUpdate:Cascade)
+  categories categories @relation(fields: [category_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+} 
