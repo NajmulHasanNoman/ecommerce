@@ -47,7 +47,7 @@ model products{
   createdAt      DateTime @default(now()) @db.Timestamp()
   updatedAt      DateTime @default(now()) @db.Timestamp()
   
-   invoice_products invoice_products[]
+   //invoice_products invoice_products[]
   // product_carts    product_carts[]
   // product_details  product_details?
   // product_reviews  product_reviews[]
