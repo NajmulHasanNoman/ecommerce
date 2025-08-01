@@ -53,12 +53,9 @@ model products{
    product_reviews  product_reviews[]
    product_sliders  product_sliders?
    product_wishes   product_wishes[]
- 
 
-  brands     brands     @relation(fields: [brand_id], references: [id],onDelete: Restrict,onUpdate:Cascade)
+  brands     brands     @relation(fields: [brand_id], references: [id], onDelete: Restrict,onUpdate:Cascade)
   categories categories @relation(fields: [category_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
-
-  
 }  
 
 model product_details{
@@ -124,7 +121,7 @@ model customer_profiles{
   ship_country   String @db.VarChar(100)
   ship_phone     String @db.VarChar(50)
   user_id        Int    @unique
-  users          users @relation(fields: [user_id],references: [id], onDelete: Restrict, onUpdate: Cascade)
+  users          users @relation(fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
   createdAt  DateTime @default(now()) @db.Timestamp(0)
   updatedAt  DateTime @default(now()) @updatedAt @db.Timestamp(0)
@@ -229,7 +226,7 @@ model features{
   name        String 
   img         String @db.VarChar(300)
   description String @db.LongText
-  
+
 }
 
 enum policies_type{
