@@ -1,4 +1,16 @@
 -- CreateTable
+CREATE TABLE `brands` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `brandName` VARCHAR(50) NOT NULL,
+    `brandImg` VARCHAR(300) NOT NULL,
+    `createdAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `updatedAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+
+    UNIQUE INDEX `brands_brandName_key`(`brandName`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `categories` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `categoryName` VARCHAR(50) NOT NULL,
@@ -24,8 +36,8 @@ CREATE TABLE `products` (
     `remark` ENUM('popular', 'new', 'top', 'special', 'trending', 'regular') NOT NULL,
     `category_id` INTEGER NOT NULL,
     `brand_id` INTEGER NOT NULL,
-    `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `createdAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `updatedAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -137,8 +149,8 @@ CREATE TABLE `product_reviews` (
     `rating` VARCHAR(10) NOT NULL,
     `customer_id` INTEGER NOT NULL,
     `product_id` INTEGER NOT NULL,
-    `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `createdAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `updatedAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -153,7 +165,7 @@ CREATE TABLE `invoices` (
     `ship_details` VARCHAR(500) NOT NULL,
     `tran_id` VARCHAR(100) NOT NULL,
     `val_id` VARCHAR(100) NOT NULL DEFAULT '0',
-    `delivery_status` ENUM('pending', 'processing', 'Completed') NOT NULL,
+    `delivery_status` ENUM('Pending', 'Processing', 'Completed') NOT NULL,
     `payment_status` VARCHAR(255) NOT NULL,
     `user_id` INTEGER NOT NULL,
     `createdAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
@@ -195,7 +207,7 @@ CREATE TABLE `sslcommerz_accounts` (
     `currency` VARCHAR(255) NOT NULL,
     `success_url` VARCHAR(255) NOT NULL,
     `fail_url` VARCHAR(255) NOT NULL,
-    `cancel_rul` VARCHAR(255) NOT NULL,
+    `cancel_url` VARCHAR(255) NOT NULL,
     `ipn_url` VARCHAR(255) NOT NULL,
     `init_url` VARCHAR(255) NOT NULL,
     `createdAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
