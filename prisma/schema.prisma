@@ -37,7 +37,7 @@ model products {
   title          String          @db.VarChar(200)
   short_des      String          @db.VarChar(500)
   price          Float
-  discount       Boolean
+  discount       Int
   discount_price Float
   image          String          @db.VarChar(200)
   stock          Boolean
@@ -248,6 +248,7 @@ enum invoices_delivery_status {
   Pending
   Processing
   Completed
+  Cancelled
 }
 
 enum products_remark {
@@ -258,3 +259,4 @@ enum products_remark {
   trending
   regular
 }
+ 
