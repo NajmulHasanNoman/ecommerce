@@ -1,26 +1,56 @@
+import { SendEmail } from "@/utility/EmailUtility";
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
-import {SendEmail} from "@/utility/EmailUtility"
 
-export async function GET(req,res) {
-    try{
-        const prisma=new PrismaClient();
-        let {searchParams}=new URL(req.url);
-        let email=searchParams.get('email');
+export async function POST(req,res) {
+  try{
+    let {searchParams}=new URL(req.url);
+    let email=searchParams.get('email');
 
-        let code=(Math.floor(100000+Math.random()*900000)).toString()
-        let EmailText=`Your OTP Code is ${code}`;
-        let EmailSubject="Next Ecommerce Verification Code";
-        await SendEmail(email, EmailText,EmailSubject);
+    let code=(Math.floor(100000+Math.random()*900000)).toString();
+    let EmailText=`Your OTP code is=${code}`
+    let EmailSubject="Next Ecommerce Verification Code";
+    await SendEmail(email, EmailText,EmailSubject
 
-        const result=await prisma.users.upsert({
-            where:{email: email},
-            update:{otp:code},
-            create: {email:email, otp:code}
-        })
-        return NextResponse.json({status:"success",data:result})
-    }
-    catch(e){
+      const result=await prisma
+    
+    
+  } catch(e){
         return NextResponse.json({status:"fail",data:e})
-    }
+  } 
 }
+
+
+
+
+
+
+
+
+
+// import { PrismaClient } from "@prisma/client";
+// import { NextResponse } from "next/server";
+// import {SendEmail} from "@/utility/EmailUtility"
+
+// export async function GET(req,res) {
+//     try{
+//         const prisma=new PrismaClient();
+//         let {searchParams}=new URL(req.url);
+//         let email=searchParams.get('email');
+
+//         let code=(Math.floor(100000+Math.random()*900000)).toString()
+//         let EmailText=`Your OTP Code is ${code}`;
+//         let EmailSubject="Next Ecommerce Verification Code";
+//         await SendEmail(email, EmailText,EmailSubject);
+
+//         const result=await prisma.users.upsert({
+//             where:{email: email},
+//             update:{otp:code},
+//             create: {email:email, otp:code}
+//         })
+//         return NextResponse.json({status:"success",data:result})
+//     }
+//     catch(e){
+//         return NextResponse.json({status:"fail",data:e})
+//     }
+// }
