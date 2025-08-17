@@ -8,7 +8,6 @@ export async function POST(req,res) {
 
         const prisma=new PrismaClient();
         const result=await prisma.users.findMany({where:reqBody});
-        console.log(result.length)
         if(result.length===0){
             return NextResponse.json({status:"fail",data:"Invalid Verification Code"})
         }
@@ -16,9 +15,8 @@ export async function POST(req,res) {
             prisma.users.update({
              where:{email: reqBody['email']},
                 data:{otp:"0"}
-            })
-            
-        }
+            }) 
+        }    
         let token=await CreateToken(result[0]['email'],result[0]['id']);
         let expireDuration=new Date(Date.now()+24*60*60*1000);
         const cookieString=`token=${token}; expires=${expireDuration.toUTCString()}; PATH=/`;
