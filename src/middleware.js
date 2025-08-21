@@ -1,74 +1,36 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { VerifyToken } from "./utility/JWTTokenHelper";
 
 export async function middleware(req,res) {
    try{
-       let token=  await cookies.get('token');
-       let payload= await VerifyToken(token['value']);
+      let token=req.cookies.get('token')
+      let payload= await VerifyToken(token['value']); 
 
-       const requestHeader=new Headers(req.headers);
-       requestHeader.set('email',payload['email']);
-       requestHeader.set('id',payload['id']);
+      const requestHeader= new Headers(req.headers)
+      requestHeader.set('email',payload['email'])
+      requestHeader.set('id',payload['id']);
 
-       return NextRequest.next({
+      return NextResponse.next({
          request:{
             headers:requestHeader
          }
        })
    }
    catch(e){
-         if(req.url.startsWith('/api/')){
-            return NextResponse.json({status:"fail",data:"unauthorized"},{status:401})
-         }
-         else{
-          res.redirect('/login')
-         }
+      if(req.url.startsWith('/api/')){
+         return NextResponse.json({status:"fail",data:"Unauthorized"},{status:401})
+      }
+       else{
+         res.redirect('/login')
+      }
    }
+     
 }
-
 export const config={
    matcher:[
       '/api/cart/:path*',
       '/api/invoice/:path*',
       '/api/user/profile',
-      '/api/wish/:path*',
-   ]
+      '/api/wish/:path*'
+   ] 
 }
-
-
-// import { NextResponse } from "next/server";
-// import { VerifyToken } from "./utility/JWTTokenHelper";
-
-// export async function middleware(req,res) {
-//    try{
-//       let token=req.cookies.get('token')
-//       let payload= await VerifyToken(token['value']); 
-
-//       const requestHeader= new Headers(req.headers)
-//       requestHeader.set('email',payload['email'])
-//       requestHeader.set('id',payload['id']);
-
-//       return NextResponse.next({
-//          request:{
-//             headers:requestHeader
-//          }
-//        })
-//    }
-//    catch(e){
-//       if(req.url.startsWith('/api/')){
-//          return NextResponse.json({status:"fail",data:"Unauthorized"},{status:401})
-//       }
-//        else{
-//          res.redirect('/login')
-//       }
-//    }
-     
-// }
-// export const config={
-//    matcher:[
-//       '/api/cart/:path*',
-//       '/api/invoice/:path*',
-//       '/api/user/profile',
-//       '/api/wish/:path*'
-//    ] 
-// }
