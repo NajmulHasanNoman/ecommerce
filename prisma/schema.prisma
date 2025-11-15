@@ -107,7 +107,7 @@ model users {
 model customer_profiles {
   id            Int    @id @default(autoincrement())
   cus_name      String @db.VarChar(100)
-  cus_add       String @db.VarChar(500)
+  cus_add1       String @db.VarChar(500)
   cus_city      String @db.VarChar(50)
   cus_state     String @db.VarChar(50)
   cus_postcode  String @db.VarChar(50)
@@ -115,7 +115,7 @@ model customer_profiles {
   cus_phone     String @db.VarChar(50)
   cus_fax       String @db.VarChar(50)
   ship_name     String @db.VarChar(100)
-  ship_add      String @db.VarChar(100)
+  ship_add1      String @db.VarChar(100)
   ship_city     String @db.VarChar(100)
   ship_state    String @db.VarChar(100)
   ship_postcode String @db.VarChar(100)

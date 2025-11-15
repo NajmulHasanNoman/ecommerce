@@ -1,8 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client"; 
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+import { POST } from "../../cart/list/route";
 
-export async function GET(req,res) {
+export async function GET(req,res) { 
     try{
         let headerList=await headers();
         let id=parseInt(headerList.get('id'))
@@ -11,13 +12,13 @@ export async function GET(req,res) {
 
 //======Step 01: Calculate Total Payable & Vat=====================================
      
-        const cartProducts=await prisma.product_carts.findMany({
+        const CartProducts=await prisma.product_carts.findMany({
             where:{user_id:id},
             include:{products:true}
         })
 
         let totalAmount=0; 
-        cartProducts.forEach((element)=>{
+        CartProducts.forEach((element)=>{
             let price;
             if(element['products']['discount']){
                 price=element['products']['discount_price']
@@ -29,15 +30,15 @@ export async function GET(req,res) {
         })
         let vat=totalAmount*0.05;    //5% vat
         let payable=totalAmount+vat;
-
+ 
 
 
 
 //==========Step 02: Prepare Customer Details & Shipping Details============================
 
         let Profile=await prisma.customer_profiles.findUnique({where:{user_id:id}})
-        let cus_details=`Name: ${Profile['cus_name']}, Email:${cus_email}, Address:${Profile['cus_add']}`;
-        let ship_details=`Name:${Profile['ship_name']},City:${Profile['ship_city']},Address:${Profile['ship_add']},Phone:${Profile['ship_phone']}`
+        let cus_details=`Name: ${Profile['cus_name']}, Email:${cus_email}, Address:${Profile['cus_add1']}`;
+        let ship_details=`Name:${Profile['ship_name']},City:${Profile['ship_city']},Address:${Profile['ship_add1']},Phone:${Profile['ship_phone']}`
 
  //==========Step 03: Transaction & Other's ID=====================================
         let tran_id=(Math.floor(10000000+Math.random()*90000000)).toString(); 
@@ -47,7 +48,7 @@ export async function GET(req,res) {
 
 
 //==========Step 04: Create Invoice================================================
-const createInvoice= await prisma.invoices.create({
+const CreateInvoice= await prisma.invoices.create({
     data:{
         total:totalAmount,
         vat:vat,
@@ -65,9 +66,76 @@ const createInvoice= await prisma.invoices.create({
 
 //==============Step 05: Create Invoice Product======================================
 
-        let invoice_id=createInvoice['id'];
+        let invoice_id=CreateInvoice['id'];
+        for(const element of CartProducts){
+            await prisma.invoice_products.create({
+                data:{
+                    invoice_id:invoice_id,
+                    product_id:element['product_id'],
+                    user_id:id,
+                    qty:element['qty'],
+                    sale_price:element['products']['discount']?element['products']['discount_price']:element['products']['price'],
+                    color:element['color'],
+                    size:element['size']
+                }
+            })
+        }
 
-        return NextResponse.json({status:"success",data:invoice_id})
+
+
+//=============Step 06: Remove Carts=================================================
+        await prisma.product_carts.deleteMany({
+            where:{user_id:id}
+        })
+  
+
+//=============Step 07: Prepare SSL Payment=================================================
+
+         let PaymentSettings=await prisma.sslcommerz_accounts.findFirst();
+         const form=new FormData();
+         form.append('store_id',PaymentSettings['store_id'])
+         form.append('store_passwd',PaymentSettings['store_passwd'])   
+         form.append('total_amount',payable.toString())
+         form.append('currency',PaymentSettings['currency'])
+         form.append('tran_id',tran_id)
+      //Payment status
+         form.append('success_url',`${PaymentSettings['success_url']}?tran_id=${tran_id}`)
+         form.append('fail_url',`${PaymentSettings['fail_url']}?tran_id=${tran_id}`)
+         form.append('cancel_url',`${PaymentSettings['cancel_url']}?tran_id=${tran_id}`)
+         form.append('ipn_ur',`${PaymentSettings['ipn_url']}?tran_id=${tran_id}`)
+      //customer related information
+         form.append('cus_name',Profile['cus_name'])
+         form.append('cus_email',cus_email)
+         form.append('cus_add1',Profile['cus_add1'])
+         form.append('cus_city',Profile['cus_city'])
+         form.append('cus_state',Profile['cus_state'])
+         form.append('cus_postcode',Profile['cus_postcode'])
+         form.append('cus_country',Profile['cus_country'])
+         form.append('cus_phone',Profile['cus_phone'])
+         form.append('cus_fax',Profile['cus_fax'])
+       //  
+         form.append('shipping_method',"YES")
+         form.append('ship_name',Profile['ship_name'])
+         form.append('ship_add1',Profile['ship_add1'])
+         form.append('ship_city',Profile['ship_city'])
+         form.append('ship_state',Profile['ship_state'])
+         form.append('ship_country',Profile['ship_country'])
+         form.append('ship_postcode',Profile['ship_postcode'])
+        
+         form.append('product_name',"According to invoice")
+         form.append('product_category',"According to invoice")
+         form.append('product_profile',"According to invoice")
+         form.append('product_amount',"According to invoice")
+
+         let SSLRes=await fetch(PaymentSettings['init_url'],{
+            method:'POST',
+            body:form
+         })
+     
+         let SSLResJSON=await SSLRes.json();
+
+
+        return NextResponse.json({status:"success",data:SSLResJSON})
     }
     catch(e){
         return NextResponse.json({status:"fail",data:e.toString()})
