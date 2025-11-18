@@ -4,11 +4,11 @@ export async function SendEmail(EmailTo, EmailText,EmailSubject) {
         host:"smtp.gmail.com",
         port:25,
         secure:false,
-        auth:{user:"noman.cse.eu@gmail.com", pass:"vdyd oynb emmq lvsf"},
+        auth:{user:"najmulhasannoman72@gmail.com", pass:"oqma njdx nomp xdcv"},
         tls:{rejectUnauthorized:false}
     })
     let MailOption={
-        from:"Next Ecommerce<noman.cse.eu@gmail.com>",
+        from:"Next Ecommerce<najmulhasannoman72@gmail.com>",
         to:EmailTo,
         subject:EmailSubject,
         text:EmailText

@@ -10,11 +10,25 @@
   },
   "dependencies": {
     "@prisma/client": "^6.13.0",
+    "axios": "^1.13.2",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "html-react-parser": "^5.2.10",
     "jose": "^6.0.12",
+    "js-cookie": "^3.0.5",
+    "lottie-react": "^2.4.1",
     "next": "15.4.4",
+    "nextjs-toploader": "^3.9.17",
     "nodemailer": "^7.0.5",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "19.1.0",
+    "react-hot-toast": "^2.6.0",
+    "react-image-gallery": "^1.4.0",
+    "react-loading-skeleton": "^3.5.0",
+    "react-star-ratings": "^2.3.0",
+    "sweetalert2": "^11.26.3",
+    "swr": "^2.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
