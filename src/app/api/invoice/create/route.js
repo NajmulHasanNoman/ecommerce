@@ -93,7 +93,7 @@ const CreateInvoice= await prisma.invoices.create({
 
          let PaymentSettings=await prisma.sslcommerz_accounts.findFirst();
          const form=new FormData();
-         form.append('store_id',PaymentSettings['store_id'])
+         form.append('store_id',PaymentSettings['store_id']) 
          form.append('store_passwd',PaymentSettings['store_passwd'])   
          form.append('total_amount',payable.toString())
          form.append('currency',PaymentSettings['currency'])
