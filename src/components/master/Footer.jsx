@@ -7,7 +7,7 @@ const Footer = () => {
 <div className="section-bottom shadow-sm bg-white">
 <div className="container py-5">
 <div className="row">
-<div className="col-md-4">
+<div className="col-md-3">
 <h1 className="bodyMedium">Legals</h1>
 <p className="my-2">
 <Link className="nav-link" href="/about">About</Link>
@@ -22,7 +22,7 @@ const Footer = () => {
 <Link className="nav-link" href="/terms">Terms</Link>
 </p>
 </div>
-<div className="col-md-4">
+<div className="col-md-3">
 <h1 className="bodyMedium">Information</h1>
 <p className="my-2">
 <Link className="nav-link" href="/how-to-buy">How to buy</Link>
@@ -34,10 +34,15 @@ const Footer = () => {
 <Link className="nav-link" href="/complain">Complain</Link>
 </p>
 </div>
-<div className="col-md-4">
+<div className="col-md-3">
 <h1 className="bodyMedium">About</h1>
-<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum </p>
+<p>This is an virtual or online marketing platform developed in Next JS framework. Unique  Collections or Regular Products are available at reasonable price.   </p>
 <img alt="" className="w-100" src="/images/pay.png" />
+</div>
+<div className="col-md-3">
+<h1 className="bodyMedium">Developed by</h1>
+<p>Md. Najmul Hasan Noman <br /> Web Application Developer </p>
+<img alt="" className="w-100" src="../../assets/images/noman.png" />
 </div>
 </div>
 </div>
