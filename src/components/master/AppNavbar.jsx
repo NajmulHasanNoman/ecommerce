@@ -11,7 +11,7 @@ const AppNavbar = () => {
                         <div className="col- md-6">
                             <span>
                                 <span className="f-12">
-                                <i className="bi bi-envelope"></i> Support@PlanB.com </span>
+                                <i className="bi bi-envelope"></i> noman.cse.ju@gmail.com </span>
                                 <span className="f-12 mx-2">
                                 <i className="bi bi-envelope"></i> 01784685380 </span>
                             </span>
