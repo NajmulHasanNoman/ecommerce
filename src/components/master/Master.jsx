@@ -1,11 +1,14 @@
 import React from 'react';
-import AppNavbar from './co';
+import AppNavbar from './AppNavbar';
+import Footer from './Footer';
+
 
 const Master = (props) => {
     return (
         <div>
-           <AppNavbar/>
+          <AppNavbar/>
             {props.children}
+            <Footer/>
         </div>
     );
 };
