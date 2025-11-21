@@ -4,7 +4,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import Link from 'next/link';
 const AppNavbar = () => {
     return (
-        <>
+        <div>
             <div className="container-fluid text-white p-2 bg-success">
                 <div className="container">
                     <div className="row justify-content-around">
@@ -19,15 +19,15 @@ const AppNavbar = () => {
 
                         <div className="col-md-6">
                             <span className="float-end">
-                            <span className="bodySmall mx-2">
-                            <i className="bi bi-whatsapp"></i>
-                            </span>
-                            <span className="bodySmall mx-2">
-                            <i className="bi bi-youtube"></i>
-                            </span>
-                            <span className="bodySmall">
-                            <i className="bi bi-facebook"></i>
-                            </span>
+                                <span className="bodySmal mx-2">
+                                <i className="bi bi-whatsapp"></i>
+                                </span>
+                                <span className="bodySmal mx-2">
+                                <i className="bi bi-youtube"></i>
+                                </span>
+                                <span className="bodySmal">
+                                <i className="bi bi-facebook"></i> 
+                                </span>
                             </span>
                         </div>
                     </div>
@@ -36,7 +36,7 @@ const AppNavbar = () => {
 
                     <Navbar collapseOnSelect expand="lg" className="bg-white sticky-top shadow-sm py-3">
                         <Container> 
-                            <Navbar.Brand href="">
+                            <Navbar.Brand>
                                 <img className="img-fluid" src="/images/plain-logo.svg" alt="" width="96px" />
                             </Navbar.Brand>
 
@@ -66,22 +66,21 @@ const AppNavbar = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0
                                 11-14 0 7 7 0 0114 0z" />
                                 </svg>
-                                </button>width:height:
-                                Footer
+                                </button>
                                 </div>
-                                <Link href="/cart" type="button" className="btn ms-2 btn-light position-relative">
+                                {/* <Link href="/cart" type="button" className="btn ms-2 btn-light position-relative">
                                 <i className="bi text-dark bi-bag"></i>
                                 </Link>
                                 <Link href="/wish" type="button" className="btn ms-2 btn-light d-flex">
                                 <i className="bi text-dark bi-heart"></i>
-                                </Link>
+                                </Link> */}
                                 <Link type="button" className="btn ms-3 btn-success d-flex" href="/profile">Profile</Link>
                                 <Link type="button" className="btn ms-3 btn-success d-flex" href="/profile">Logout</Link>
                                 </Nav>
                             </Navbar.Collapse>
                         </Container>
                     </Navbar>
-        </>
+        </div>
     );
 };
 
