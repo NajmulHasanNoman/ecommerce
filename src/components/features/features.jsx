@@ -7,7 +7,7 @@ async function getData() {
 
 const Features =async () => {
     let FeatureList=await getData();
-    return(
+    return( 
         <div className="container section">
             <div className="row">
                 {FeatureList.map((item,i)=>{
