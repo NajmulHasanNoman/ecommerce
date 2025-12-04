@@ -9,6 +9,7 @@ import FeaturesSkeleton from '@/skeleton/featuresSkeleton';
 import BrandsSkeleton from '@/skeleton/brandsSkeleton';
 import ProductsSkeleton from '@/skeleton/productsSkeleton';
 import CategoriesSkeleton from '@/skeleton/categoriesSkeleton';
+import Categories from '@/components/product/categories';
 
 const page = () => {
   return (
@@ -19,11 +20,14 @@ const page = () => {
     <Suspense fallback={<FeaturesSkeleton/>}>
       <Features/>
     </Suspense>
+    <Suspense fallback={CategoriesSkeleton}>
+      <Categories/>
+    </Suspense>
       
-      {/* <FeaturesSkeleton/> */}
+    
       <BrandsSkeleton/>
       <ProductsSkeleton/>
-      <CategoriesSkeleton/> 
+     
       </Master>
     </div>
   );

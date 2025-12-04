@@ -1,7 +1,7 @@
 import React from 'react';
 
 async function getData() {
-    await new Promise(resolve => setTimeout(resolve, 5000));
+ //   await new Promise(resolve => setTimeout(resolve, 5000));
     return (await (await fetch(`${process.env.HOST}/api/features/features-list`)).json())['data']
 }
 

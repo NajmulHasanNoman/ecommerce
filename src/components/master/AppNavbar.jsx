@@ -13,7 +13,7 @@ const AppNavbar = () => {
                                 <span className="f-12">
                                 <i className="bi bi-envelope"></i> noman.cse.ju@gmail.com </span>
                                 <span className="f-12 mx-2">
-                                <i className="bi bi-envelope"></i> 017846853800 </span>
+                                <i className="bi bi-envelope"></i> 01784685380</span>
                             </span>
                         </div>
 
